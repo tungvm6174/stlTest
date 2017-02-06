@@ -8,6 +8,7 @@
 #include <cstring>
 #include <algorithm>
 #include <initializer_list>
+#include <bitset>
 
 using std::vector;
 using std::cout;
@@ -89,6 +90,16 @@ void myprint(std::initializer_list<int> vals) {
   }
 }
 
+void print()
+{
+}
+template<typename T, typename ... Types>
+void print(const T& firstArg, const Types&... args)
+           {
+  std::cout << sizeof...(args) << " -> " << firstArg << std::endl;  // print first argument
+  print(args...);  // call print() for remaining arguments
+}
+
 int main()
 {
   int x[] = { 1, 2, 3, 4, 5 };
@@ -133,10 +144,17 @@ int main()
   copy (iter, v.end(), ostream_iterator<int>(cout, " ")); cout << endl;
   showContents(v);
 
-  auto n=8;
+  auto n=std::numeric_limits<long>::max();
   cout << n <<endl;
 
 //  myprint({12,3,5,7,11,13,17}); // pass a list of values to print()
 
+  std::string s = R"nc(a\
+  b\nc()"
+  )nc";
+
+  cout << s << endl;
+
+  print (7.5, "hello", std::bitset<16>(377), 42);
 
 }
